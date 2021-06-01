@@ -9,7 +9,7 @@ export default function Home({ products }) {
                     key={product.id}
                     className="flex flex-row items-center mx-auto max-w-5xl"
                 >
-                    <Link href={`/product/${product.slug}`}>
+                    <Link href={`/product/${product.id}`}>
                         <a>
                             <span className="text-lg font-bold">
                                 {product.name}
