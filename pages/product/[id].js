@@ -1,22 +1,43 @@
 import { PRODUCTS } from "../../data/products";
 import Flickity from "react-flickity-component";
+import "flickity/css/flickity.css";
 import React from "react";
 import Link from "next/link";
 
 export default function Product(props) {
     const { product } = props;
-    const crumbs = ["CLothing", "TShirts"];
+    const crumbs = ["Clothing", "TShirts"];
     const flickityOptions = {
         groupCells: false,
         cellAlign: "center",
         wrapAround: false,
         autoPlay: false,
-        prevNextButtons: false,
+        prevNextButtons: true,
         adaptiveHeight: true,
         // imagesLoaded:true,
         lazyLoad: false,
         dragThreshold: 15,
+        rightToLeft: false,
+        elementType: "div",
+        static: false,
+        initialIndex: 0,
+        inagesLoaded: true,
         pageDots: false,
+        // reLoadOnUpdate: true,
+        contain: true,
+    };
+
+    const flickityOptionsRelatedProducts = {
+        cellSelector: ".carousel-cell",
+        groupCells: true,
+        cellAlign: "center",
+        wrapAround: false,
+        autoPlay: false,
+        prevNextButtons: true,
+        adaptiveHeight: true,
+        // imagesLoaded:true,
+        lazyLoad: false,
+        dragThreshold: 15,
         rightToLeft: false,
         elementType: "div",
         static: false,
@@ -73,12 +94,12 @@ export default function Product(props) {
                 </header>
                 {/* Below this is the product display section */}
                 <div className="mt-8">
-                    <div className="w-full overflow-x-hidden md:w-1/2">
+                    <div className="w-full  md:w-1/2">
                         {/* <img
                             src={product.galleryImages?.nodes?.[0]?.sourceUrl}
                             alt="Image"
                         /> */}
-                        <div className="mx-4 overflow-x-hidden">
+                        <div className="mx-4 ">
                             <Flickity
                                 // className={"carousel"} // default ''
                                 // elementType={"div"} // default 'div'
@@ -178,6 +199,207 @@ export default function Product(props) {
                                 __html: product.description,
                             }}
                         ></div>
+                    </div>
+                    <hr className="mx-4 mt-10 border-gray-100" />
+                    <div>
+                        <div className="mx-4 mt-4 uppercase text-base font-medium text-gray-700">
+                            Related Products
+                        </div>
+                        <div className="mx-4 mt-4">
+                            <Flickity
+                                // className={"carousel"} // default ''
+                                // elementType={"div"} // default 'div'
+                                options={flickityOptionsRelatedProducts} // takes flickity options {}
+                                // disableImagesLoaded={false} // default false
+                                reloadOnUpdate={true} // default false
+                                // static // default false
+                                // cellSelector=".carousel-cell"
+                            >
+                                {PRODUCTS.data.products.nodes.map(
+                                    (product, index) => (
+                                        <div className="carousel-cell w-1/2">
+                                            <img
+                                                className={
+                                                    index % 2 ? "pl-1" : "pr-1"
+                                                }
+                                                // className="inline-block w-1/4  border border-black border-opacity-30"
+                                                src={product.image.sourceUrl}
+                                                alt={`Image ${index}`}
+                                                key={product.id}
+                                            />
+                                            <div className="ml-2 mt-2 text-sm">
+                                                <div className="text-xs pb-2 uppercase  text-gray-400 ">
+                                                    Clothing
+                                                </div>
+                                                <div className="text-gray-700 leading-tight">
+                                                    {product.name}
+                                                </div>
+                                                <div className="text-black font-medium">
+                                                    {product.price}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                )}
+                            </Flickity>
+                        </div>
+                        <hr className="mx-4 mt-10 border-gray-100" />
+                        <div>
+                            <div className="mx-4 mt-10 uppercase text-base font-medium text-gray-700">
+                                Latest
+                            </div>
+                            <div className="mx-4 bg-gray-200 w-8 h-1 mt-2"></div>
+                            <div className="mt-4">
+                                {PRODUCTS.data.products.nodes.map(
+                                    (product, index) => {
+                                        if (index < 4) {
+                                            return (
+                                                <>
+                                                    <div className="mx-4 flex flex-row ">
+                                                        <img
+                                                            className="w-16"
+                                                            // className="inline-block w-1/4  border border-black border-opacity-30"
+                                                            src={
+                                                                product.image
+                                                                    .sourceUrl
+                                                            }
+                                                            alt={`Image ${index}`}
+                                                            key={product.id}
+                                                        />
+                                                        <div className="ml-4 text-base ">
+                                                            <div className="text-gray-700 mt-4  pt-2 leading-normal">
+                                                                {product.name}
+                                                            </div>
+                                                            <div className="text-black font-medium">
+                                                                {product.price}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr className="mx-4 my-2 border-gray-100" />
+                                                </>
+                                            );
+                                        }
+                                    }
+                                )}
+                            </div>
+                        </div>
+                        <div>
+                            <div className="mx-4 mt-10 uppercase text-base font-medium text-gray-700">
+                                best selling
+                            </div>
+                            <div className="mx-4 bg-gray-200 w-8 h-1 mt-2"></div>
+                            <div className="mt-4">
+                                {PRODUCTS.data.products.nodes.map(
+                                    (product, index) => {
+                                        if (index >= 4 && index < 8) {
+                                            return (
+                                                <>
+                                                    <div className="mx-4 flex flex-row ">
+                                                        <img
+                                                            className="w-16"
+                                                            // className="inline-block w-1/4  border border-black border-opacity-30"
+                                                            src={
+                                                                product.image
+                                                                    .sourceUrl
+                                                            }
+                                                            alt={`Image ${index}`}
+                                                            key={product.id}
+                                                        />
+                                                        <div className="ml-4 text-base ">
+                                                            <div className="text-gray-700 mt-4  pt-2 leading-normal">
+                                                                {product.name}
+                                                            </div>
+                                                            <div className="text-black font-medium">
+                                                                {product.price}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr className="mx-4 my-2 border-gray-100" />
+                                                </>
+                                            );
+                                        }
+                                    }
+                                )}
+                            </div>
+                        </div>
+                        <div>
+                            <div className="mx-4 mt-10 uppercase text-base font-medium text-gray-700">
+                                featured
+                            </div>
+                            <div className="mx-4 bg-gray-200 w-8 h-1 mt-2"></div>
+                            <div className="mt-4">
+                                {PRODUCTS.data.products.nodes.map(
+                                    (product, index) => {
+                                        if (index >= 8 && index < 12) {
+                                            return (
+                                                <>
+                                                    <div className="mx-4 flex flex-row ">
+                                                        <img
+                                                            className="w-16"
+                                                            // className="inline-block w-1/4  border border-black border-opacity-30"
+                                                            src={
+                                                                product.image
+                                                                    .sourceUrl
+                                                            }
+                                                            alt={`Image ${index}`}
+                                                            key={product.id}
+                                                        />
+                                                        <div className="ml-4 text-base ">
+                                                            <div className="text-gray-700 mt-4  pt-2 leading-normal">
+                                                                {product.name}
+                                                            </div>
+                                                            <div className="text-black font-medium">
+                                                                {product.price}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr className="mx-4 my-2 border-gray-100" />
+                                                </>
+                                            );
+                                        }
+                                    }
+                                )}
+                            </div>
+                        </div>
+                        <div>
+                            <div className="mx-4 mt-10 uppercase text-base font-medium text-gray-700">
+                                top rated
+                            </div>
+                            <div className="mx-4 bg-gray-200 w-8 h-1 mt-2"></div>
+                            <div className="mt-4">
+                                {PRODUCTS.data.products.nodes.map(
+                                    (product, index) => {
+                                        if (index >= 12 && index < 16) {
+                                            return (
+                                                <>
+                                                    <div className="mx-4 flex flex-row ">
+                                                        <img
+                                                            className="w-16"
+                                                            // className="inline-block w-1/4  border border-black border-opacity-30"
+                                                            src={
+                                                                product.image
+                                                                    .sourceUrl
+                                                            }
+                                                            alt={`Image ${index}`}
+                                                            key={product.id}
+                                                        />
+                                                        <div className="ml-4 text-base ">
+                                                            <div className="text-gray-700 mt-4  pt-2 leading-normal">
+                                                                {product.name}
+                                                            </div>
+                                                            <div className="text-black font-medium">
+                                                                {product.price}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr className="mx-4 my-2 border-gray-100" />
+                                                </>
+                                            );
+                                        }
+                                    }
+                                )}
+                            </div>
+                        </div>
                     </div>
                     <div className="h-20"></div>
                 </div>
