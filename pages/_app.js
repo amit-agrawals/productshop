@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Creatic Being Creative</title>
+                <title>Flatsome</title>
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
@@ -26,9 +26,6 @@ function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
             <style global jsx>{`
                 body {
-                    // background-image: url("https://creatic.co.in/wp-content/uploads/2020/05/back-white-wall-3.png");
-                    // background-size: auto;
-                    // background-repeat: repeat;
                     font-family: "Lato", sans-serif;
                     width: 100%;
                 }

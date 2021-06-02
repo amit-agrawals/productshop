@@ -17,6 +17,45 @@ export const PRODUCTS = {
                         caption: null,
                         description: null,
                     },
+                    galleryImages: {
+                        nodes: [
+                            {
+                                id: "cG9zdDo0NjAx",
+                                title: "album-1.jpg",
+                                altText: "",
+                                sourceUrl:
+                                    "http://34.101.127.195/wp-content/uploads/2021/05/album-1.jpg",
+                            },
+                            {
+                                id: "cG9zdDo0NjAy",
+                                title: "IMG-20200211-WA0122 (1)",
+                                altText: "",
+                                sourceUrl:
+                                    "http://34.101.127.195/wp-content/uploads/2021/05/hoodie-with-pocket-2.jpg",
+                            },
+                            {
+                                id: "cG9zdDo0NjAz",
+                                title: "IMG-20200211-WA0124",
+                                altText: "",
+                                sourceUrl:
+                                    "http://34.101.127.195/wp-content/uploads/2021/05/hoodie-with-zipper-2.jpg",
+                            },
+                            {
+                                id: "cG9zdDo0NjAz",
+                                title: "IMG-20200211-WA0124",
+                                altText: "",
+                                sourceUrl:
+                                    "http://34.101.127.195/wp-content/uploads/2021/05/hoodie-with-logo-2.jpg",
+                            },
+                            {
+                                id: "cG9zdDo0NjAz",
+                                title: "IMG-20200211-WA0124",
+                                altText: "",
+                                sourceUrl:
+                                    "http://34.101.127.195/wp-content/uploads/2021/05/long-sleeve-tee-2.jpg",
+                            },
+                        ],
+                    },
                     averageRating: 0,
                     dateOnSaleFrom: null,
                     dateOnSaleTo: null,
