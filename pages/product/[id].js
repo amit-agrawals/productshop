@@ -1,12 +1,13 @@
 import { PRODUCTS } from "../../data/products";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 
 export default function Product(props) {
     const { product } = props;
     const crumbs = ["Clothing", "TShirts"];
+    const flkty = useRef(null)
     const flickityOptions = {
         groupCells: false,
         cellAlign: "center",
@@ -104,6 +105,7 @@ export default function Product(props) {
                                 // className={"carousel"} // default ''
                                 // elementType={"div"} // default 'div'
                                 options={flickityOptions} // takes flickity options {}
+                                ref={flkty}
                                 // disableImagesLoaded={false} // default false
                                 reloadOnUpdate={true} // default false
                                 // static // default false
@@ -131,6 +133,7 @@ export default function Product(props) {
                                                 className="border border-black border-opacity-20"
                                                 src={img.sourceUrl}
                                                 alt={`Image ${index}`}
+                                                onClick={()=>flkty.current.flkty.select(index,true)}
                                             />
                                         </div>
                                     )
