@@ -51,7 +51,8 @@ export default function Product(props) {
     // console.log(product);
 
     return (
-        <div className="xs:bg-red-200 sm:bg-blue-300 md:bg-green-200 lg:bg-yellow-200 xl:bg-purple-400 2xl:bg-pink-300">
+        // <div className="xs:bg-red-200 sm:bg-blue-300 md:bg-green-200 lg:bg-yellow-200 xl:bg-purple-400 2xl:bg-pink-300">
+        <div>
             <div className="w-full h-7 bg-indigo-700 text-gray-200">
                 <div className="mx-auto max-w-5xl h-full flex flex-row items-center justify-between">
                     <span className="uppercase text-xs font-semibold">
