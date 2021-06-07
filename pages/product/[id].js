@@ -1,13 +1,13 @@
 import { PRODUCTS } from "../../data/products";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function Product(props) {
     const { product } = props;
     const crumbs = ["Clothing", "TShirts"];
-    const flkty = useRef(null);
+    const [sindex, setsindex] = useState(0)
     const flickityOptions = {
         groupCells: false,
         cellAlign: "center",
@@ -27,7 +27,7 @@ export default function Product(props) {
         // reLoadOnUpdate: true,
         contain: true,
     };
-
+    var flickityRef
     const flickityOptionsRelatedProducts = {
         cellSelector: ".carousel-cell",
         groupCells: true,
@@ -48,8 +48,12 @@ export default function Product(props) {
         // reLoadOnUpdate: true,
         contain: true,
     };
-    // console.log(product);
-
+    useEffect(() => {
+        flickityRef?.on( 'change',(i)=>{  
+            console.log(i)
+            setsindex(i)
+        });
+    }, [flickityRef])
     return (
         // <div className="xs:bg-red-200 sm:bg-blue-300 md:bg-green-200 lg:bg-yellow-200 xl:bg-purple-400 2xl:bg-pink-300">
         <div>
@@ -107,7 +111,7 @@ export default function Product(props) {
                                     // className={"carousel"} // default ''
                                     // elementType={"div"} // default 'div'
                                     options={flickityOptions} // takes flickity options {}
-                                    ref={flkty}
+                                    flickityRef={c=>flickityRef=c}
                                     // disableImagesLoaded={false} // default false
                                     reloadOnUpdate={true} // default false
                                     // static // default false
@@ -135,15 +139,14 @@ export default function Product(props) {
                                                 key={product.id}
                                             >
                                                 <img
-                                                    className="border border-black border-opacity-20"
+                                                    className={`border border-black border-opacity-20 cursor-pointer ${index!=sindex ? "opacity-75":"opacity-100"} `}
                                                     src={img.sourceUrl}
                                                     alt={`Image ${index}`}
-                                                    onClick={() =>
-                                                        flkty.current.flkty.select(
+                                                    onClick={()=>
+                                                        flickityRef?.select(
                                                             index,
-                                                            true
-                                                        )
-                                                    }
+                                                            true)
+                                                        }
                                                 />
                                             </div>
                                         )
