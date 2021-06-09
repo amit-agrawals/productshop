@@ -41,14 +41,14 @@ export const PRODUCTS = {
                                     "http://34.101.127.195/wp-content/uploads/2021/05/hoodie-with-zipper-2.jpg",
                             },
                             {
-                                id: "cG9zdDo0NjAz",
+                                id: "cG9zdDo0NjA1",
                                 title: "IMG-20200211-WA0124",
                                 altText: "",
                                 sourceUrl:
                                     "http://34.101.127.195/wp-content/uploads/2021/05/hoodie-with-logo-2.jpg",
                             },
                             {
-                                id: "cG9zdDo0NjAz",
+                                id: "cG9zdDo0NjA2",
                                 title: "IMG-20200211-WA0124",
                                 altText: "",
                                 sourceUrl:

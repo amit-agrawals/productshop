@@ -1,13 +1,14 @@
 import { PRODUCTS } from "../../data/products";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Product(props) {
     const { product } = props;
     const crumbs = ["Clothing", "TShirts"];
-    const flkty = useRef(null);
+    const [sindex, setsindex] = useState(0);
+    let flickityRef;
     const flickityOptions = {
         groupCells: false,
         cellAlign: "center",
@@ -21,7 +22,7 @@ export default function Product(props) {
         rightToLeft: false,
         elementType: "div",
         static: false,
-        initialIndex: 0,
+        initialIndex: sindex,
         inagesLoaded: true,
         pageDots: false,
         // reLoadOnUpdate: true,
@@ -49,6 +50,21 @@ export default function Product(props) {
         contain: true,
     };
     // console.log(product);
+
+    useEffect(() => {
+        console.log(flickityRef);
+        flickityRef?.on("change", (i) => {
+            console.log(flickityRef);
+            console.log(i);
+            // sindex.current = i;
+            let id;
+            id = setTimeout(() => {
+                setsindex(i);
+                clearTimeout(id);
+            }, 500);
+            // setsindex(i);
+        });
+    }, [flickityRef, sindex]);
 
     return (
         // <div className="xs:bg-red-200 sm:bg-blue-300 md:bg-green-200 lg:bg-yellow-200 xl:bg-purple-400 2xl:bg-pink-300">
@@ -107,7 +123,15 @@ export default function Product(props) {
                                     // className={"carousel"} // default ''
                                     // elementType={"div"} // default 'div'
                                     options={flickityOptions} // takes flickity options {}
-                                    ref={flkty}
+                                    flickityRef={(c) => {
+                                        if (flickityRef !== c) {
+                                            flickityRef = c;
+                                            console.log(
+                                                "flickityRef changed:",
+                                                flickityRef
+                                            );
+                                        }
+                                    }}
                                     // disableImagesLoaded={false} // default false
                                     reloadOnUpdate={true} // default false
                                     // static // default false
@@ -120,7 +144,7 @@ export default function Product(props) {
                                                     // className="inline-block w-1/4  border border-black border-opacity-30"
                                                     src={img.sourceUrl}
                                                     alt={`Image ${index}`}
-                                                    key={product.id}
+                                                    key={img.id}
                                                 />
                                             )
                                         )}
@@ -130,19 +154,18 @@ export default function Product(props) {
                                 {product.galleryImages?.nodes &&
                                     product.galleryImages.nodes.map(
                                         (img, index) => (
-                                            <div
-                                                className="p-2"
-                                                key={product.id}
-                                            >
+                                            <div className="p-2" key={img.id}>
                                                 <img
-                                                    className="border border-black border-opacity-20"
+                                                    // className="border border-black border-opacity-20"
+                                                    className={`border border-black border-opacity-20 cursor-pointer ${
+                                                        index != sindex
+                                                            ? "opacity-75"
+                                                            : "opacity-100"
+                                                    } `}
                                                     src={img.sourceUrl}
                                                     alt={`Image ${index}`}
                                                     onClick={() =>
-                                                        flkty.current.flkty.select(
-                                                            index,
-                                                            true
-                                                        )
+                                                        setsindex(index)
                                                     }
                                                 />
                                             </div>
