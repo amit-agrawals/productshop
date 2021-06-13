@@ -28,7 +28,7 @@ export default function Product(props) {
         // reLoadOnUpdate: true,
         contain: true,
     };
-
+    var flickityRef
     const flickityOptionsRelatedProducts = {
         cellSelector: ".carousel-cell",
         groupCells: true,
