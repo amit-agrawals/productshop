@@ -3,11 +3,14 @@ import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usecont } from "../../Components/Context";
 
 export default function Product(props) {
     const { product } = props;
     const crumbs = ["Clothing", "TShirts"];
     const [sindex, setsindex] = useState(0);
+    const [qty, setqty] = useState(0)
+    const {addToCart,cart}=usecont()
     let flickityRef;
     const flickityOptions = {
         groupCells: false,
@@ -28,7 +31,6 @@ export default function Product(props) {
         // reLoadOnUpdate: true,
         contain: true,
     };
-
     const flickityOptionsRelatedProducts = {
         cellSelector: ".carousel-cell",
         groupCells: true,
@@ -58,8 +60,8 @@ export default function Product(props) {
             console.log(i);
             // sindex.current = i;
             let id;
+            setsindex(i);
             id = setTimeout(() => {
-                setsindex(i);
                 clearTimeout(id);
             }, 500);
             // setsindex(i);
@@ -69,47 +71,7 @@ export default function Product(props) {
     return (
         // <div className="xs:bg-red-200 sm:bg-blue-300 md:bg-green-200 lg:bg-yellow-200 xl:bg-purple-400 2xl:bg-pink-300">
         <div>
-            <div className="w-full h-7 bg-indigo-700 text-gray-200">
-                <div className="mx-auto max-w-5xl h-full flex flex-row items-center justify-between">
-                    <span className="uppercase text-xs font-semibold">
-                        Add anything here or just remove it...
-                    </span>
-                    <ul className="flex flex-row h-full items-center space-x-3 text-sm font-normal">
-                        <li>About</li>
-                        <span className="font-light">|</span>
-                        <li>Our Stores</li>
-                        <span className="font-light">|</span>
-                        <li>Blog</li>
-                        <span className="font-light">|</span>
-                        <li>Contact</li>
-                        <span className="font-light">|</span>
-                        <li>FAQ</li>
-                        <span className="font-light">|</span>
-                        <li>Newsletter</li>
-                        <span className="font-light">|</span>
-                        <li>Languages</li>
-                    </ul>
-                </div>
-            </div>
             <div className="mx-auto max-w-5xl">
-                <header className="h-20 border-b">
-                    <div className="h-full flex flex-row items-center">
-                        <img
-                            className="h-10"
-                            src="https://fzi4k1gk2dw3t0fqy18sw8qi-wpengine.netdna-ssl.com/wp-content/themes/flatsome/assets/img/logo.png"
-                            alt="logo"
-                        />
-                        <nav className="ml-4">
-                            <ul className="flex flex-row my-auto space-x-6 text-base uppercase font-bold text-gray-400">
-                                <li>Shirts</li>
-                                <li>Belts</li>
-                                <li>Jeans</li>
-                                <li>Hoodies</li>
-                                <li>Shorts</li>
-                            </ul>
-                        </nav>
-                    </div>
-                </header>
                 {/* Below this is the product display section */}
                 <div className="mt-8">
                     <div className="lg:flex lg:flex-row">
@@ -159,7 +121,7 @@ export default function Product(props) {
                                                     // className="border border-black border-opacity-20"
                                                     className={`border border-black border-opacity-20 cursor-pointer ${
                                                         index != sindex
-                                                            ? "opacity-75"
+                                                            ? "opacity-50"
                                                             : "opacity-100"
                                                     } `}
                                                     src={img.sourceUrl}
@@ -203,18 +165,18 @@ export default function Product(props) {
                                 }}
                             ></div>
                             <div className="mt-4 mx-4">
-                                <button className="inline-block border border-gray-300 h-10 w-7 bg-gray-50 outline-none focus:outline-none">
+                                <button className="inline-block border border-gray-300 h-10 w-7 bg-gray-50 outline-none focus:outline-none" onClick={()=>{if(qty>0){setqty(qty-1)}}}>
                                     -
                                 </button>
                                 <input
                                     type="text"
-                                    value="1"
+                                    value={qty}
                                     className="inline-block border-t border-b text-center border-gray-300 h-10 w-8 outline-none focus:outline-none"
                                 />
-                                <button className="inline-block border border-gray-300 h-10 w-7 bg-gray-50 outline-none focus:outline-none">
+                                <button className="inline-block border border-gray-300 h-10 w-7 bg-gray-50 outline-none focus:outline-none" onClick={()=>setqty(qty+1)}>
                                     +
                                 </button>
-                                <button className="ml-6 uppercase text-center text-gray-50 font-bold h-10 w-40  bg-red-400 outline-none focus:outline-none">
+                                <button className="ml-6 uppercase text-center text-gray-50 font-bold h-10 w-40  bg-red-400 outline-none focus:outline-none" onClick={()=>addToCart(product,qty)}>
                                     Add to Cart
                                 </button>
                             </div>

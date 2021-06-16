@@ -17,7 +17,15 @@ module.exports = {
             "3xl": "1920px",
             print: { raw: "print" },
         },
-        extend: {},
+        
+        extend: {
+            colors:{
+                navy:{
+                    DEFAULT:"#334862",
+                    light:"#446084"
+                }
+            }
+        },
     },
     variants: {
         extend: {},
